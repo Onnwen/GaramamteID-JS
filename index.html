@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="garamanteid.js"></script>
+</head>
+
+<body>
+<div id="content">
+    <p>Carico...</p>
+</div>
+</body>
+
+<script>
+    $(document).on('click', '#loginButton', function () {
+        window.location.href = "http://localhost:3033/login?service=3";
+    });
+
+    $(document).ready(async function () {
+        await initializeGaramanteIDAuthentication({
+            authenticated: function (user) {
+                $("#content").html("Ciao " + user.first_name + " " + user.last_name);
+            },
+            unauthenticated: function () {
+                $("#content").html("<p>Non sei autenticato.</p><button id='loginButton'>Login</button>");
+            }
+        });
+    });
+</script>
+</html>
